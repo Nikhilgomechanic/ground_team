@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - KRA Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <div class="login-container">
+        <h2 class="login-title">Login to KRA Dashboard</h2>
+        <form method="POST" class="login-form">
+            <div class="input-group">
+                <select name="role" required>
+                    <option value="" disabled selected>Select Your Role</option>
+                    <option value="CR">CR</option>
+                    <option value="Captain">Captain</option>
+                    <option value="City Head">City Head</option>
+                    <option value="Region Head">Region Head</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <input type="text" name="mail_id" placeholder="mail_id" required>
+            </div>
+            <div class="input-group">
+                <input type="password" name="id" placeholder="CR ID" required>
+            </div>
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+    </div>
+</body>
+</html>
