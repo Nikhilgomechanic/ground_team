@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CR Data - KRA Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 100%;
+            margin: auto;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(255, 0, 0, 0.5);
+            overflow-x: auto;
+        }
+        h2, h3 {
+            text-align: center;
+            color: #ff0000;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: black;
+            overflow-x: auto;
+            display: block;
+        }
+        th, td {
+            border: 1px solid #ff0000;
+            padding: 10px;
+            text-align: left;
+            white-space: nowrap;
+        }
+        th {
+            background-color: #ff0000;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #333;
+        }
+        tr:hover {
+            background-color: #444;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 15px;
+            }
+            table {
+                font-size: 14px;
+            }
+            th, td {
+                padding: 8px;
+            }
+        }
+        img {
+            display: block;
+            margin: 0 auto 20px; /* Center the image and add bottom margin */
+            max-width: 100%; /* Responsive image */
+            height: auto; /* Maintain aspect ratio */
+            max-height: 400px; /* Limit the height for better appearance */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>CR Data</h2>
+        <!-- Radar Chart Image -->
+
+        <img src="{{ chart_path }}" alt="KRA Metrics Radar Chart">
+
+        {% if data %}
+        <p><strong>CR ID:</strong> {{ data[0]["id"] }}</p>
+        <p><strong>CR Name:</strong> {{ data[0]["CR Name"] }}</p>
+        <p><strong>Final City:</strong> {{ data[0]["Final city"] }}</p>
+        <p><strong>Region:</strong> {{ data[0]["Region"] }}</p>
+
+        <!-- Table 1: Leads and Orders -->
+        <h3>Leads and Orders</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Key Result Area</th>
+                    <th>Key Performance Indicators</th>
+                    <th>Flow</th>
+                    <th>Achieve</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for row in data %}
+            <tr>
+                <td>Total Leads/Orders</td>
+                <td>{{ row["Target"] }}</td>
+                <td>{{ row["Total Flow"] }}</td>
+                <td>{{ row["Converted"] }}</td>
+                <td>{{ row["Converted %"] }}</td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr>
+                                <th>Key Result Area</th>
+                                <th>Key Performance Indicators</th>
+                                <th>Flow</th>
+                                <th>Achieve</th>
+                                <th>Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Non Prepaid Leads</td>
+                                <td>{{ row["Target"] }}</td>
+                                <td>{{ row["Lead Not Prepaid"] }}</td>
+                                <td>{{ row["Converted Leads Not Prepaid"] }}</td>
+                                <td>{{ row["Conversion Leads Non Prepaid %"] }}</td>
+                            </tr>
+                            <tr>
+                                <td>Non Prepaid Orders</td>
+                                <td>{{ row["Target"] }}</td>
+                                <td>{{ row["Orders Not Prepaid"] }}</td>
+                                <td>{{ row["Converted Orders Not Prepaid"] }}</td>
+                                <td>{{ row["Conversion Orders Non Prepaid %"] }}</td>
+                            </tr>
+                            <tr>
+                                <td>Prepaid Orders</td>
+                                <td>{{ row["Target"] }}</td>
+                                <td>{{ row["Orders Prepaid"] }}</td>
+                                <td>{{ row["Converted Orders Prepaid"] }}</td>
+                                <td>{{ row["Conversion Orders Prepaid %"] }}</td>
+                            </tr>
+                            <tr>
+                                <td>Prepaid Leads</td>
+                                <td>{{ row["Target"] }}</td>
+                                <td>{{ row["Leads Prepaid"] }}</td>
+                                <td>{{ row["Converted Leads Prepaid"] }}</td>
+                                <td>{{ row["Conversion Leads Prepaid %"] }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <h3>Leads and Orders Service Wise</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Key Result Area</th>
+                    <th>Key Performance Indicators</th>
+                    <th>Flow</th>
+                    <th>Achieve</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for row in data %}
+            <tr>
+                <td>Total Leads/Orders</td>
+                <td>{{ row["Target"] }}</td>
+                <td>{{ row["Total Service"] }}</td>
+                <td>{{ row["Convert Service"] }}</td>
+                <td>{{ row["Service Conversion %"] }}</td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr>
+                                <th>Key Result Area</th>
+                                <th>Key Performance Indicators</th>
+                                <th>Flow</th>
+                                <th>Achieve</th>
+                                <th>Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Non Prepaid Leads</td>
+                                <td>{{ row["Target"] }}</td>
+                                <td>{{ row["Service FLow Leads Not Prepaid"] }}</td>
+                                <td>{{ row["Service Converted Leads Not Prepaid"] }}</td>
+                                <td>{{ row["Service Conversion Leads Non Preapid %"] }}</td>
+                            </tr>
+                            <tr>
+                                <td>Other Leads</td>
+                                <td>{{ row["Target"] }}</td>
+                                <td>{{ row["Service FLow Orders Not Prepaid"] }}</td>
+                                <td>{{ row["Service Converted Orders Not Prepaid"] }}</td>
+                                <td>{{ row["Service Conversion Orders Non Preapid %"] }}</td>
+                            </tr>
+                            <tr>
+                                <td>Non Prepaid Leads</td>
+                                <td>{{ row["Target"] }}</td>
+                                <td>{{ row["Service FLow Leads Prepaid"] }}</td>
+                                <td>{{ row["Service Converted Leads Prepaid"] }}</td>
+                                <td>{{ row["Service Conversion Leads Preapid %"] }}</td>
+                            </tr>
+                            <tr>
+                                <td>Other Leads</td>
+                                <td>{{ row["Target"] }}</td>
+                                <td>{{ row["Service FLow Orders Prepaid"] }}</td>
+                                <td>{{ row["Service Converted Orders Prepaid"] }}</td>
+                                <td>{{ row["Service Conversion Orders Preapid %"] }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Table 2: Customer & Feedback -->
+        <h3>Customer & Feedback</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Key Result Area</th>
+                    <th>Key Performance Indicators</th>
+                    <th>Flow</th>
+                    <th>Achieve</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for row in data %}
+            <tr>
+                <td>Repeat Customers</td>
+                <td>{{ row["Target"] }}</td>
+                <td>{{ row["Total Flow Leads Orders"] }}</td>
+                <td>{{ row["Repeat Customer"] }}</td>
+                <td>{{ row["Repeated Customer %"] }}</td>>
+            </tr>
+            <tr>
+                <td>Feedback</td>
+                <td>{{ row["Target"] }}</td>
+                <td>{{ row["Total customer Reviews"] }}</td>
+                <td>{{ row["NPS"] }}</td>
+                <td>{{ row["NPS Weightage %"] }}</td>>
+            </tr>
+            <tr>
+                <td>Online Payment</td>>
+                <td>{{ row["Target"] }}</td>
+                <td>{{ row["GMV"] }}</td>
+                <td>{{ row["Online Payment"] }}</td>
+                <td>{{ row["Online Payment %"] }}</td>>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {% else %}
+        <p>No data available for this CR.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
