@@ -28,7 +28,7 @@ cursor = conn.cursor()
 
 # connect to google sheet
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_name("google_sheet_key.env", scope)
+creds = ServiceAccountCredentials.from_json_keyfile_name("key.env", scope)
 client = gspread.authorize(creds)
 
 spreadsheet_url = "https://docs.google.com/spreadsheets/d/1tKH0bgVj2p3ZgahZrjTkbTLVSquOeuPy6J7PcDNcoG0/edit?gid=0"
