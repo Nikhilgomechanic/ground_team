@@ -1,0 +1,8 @@
+Flask
+mysql-connector-python
+oauth2client
+gspread
+pandas
+numpy
+matplotlib
+pathlib
