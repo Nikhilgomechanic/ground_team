@@ -26,15 +26,24 @@ conn = mysql.connector.connect(
 
 cursor = conn.cursor()
 
-# connect to google sheet
-scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_name("key.txt", scope)
-client = gspread.authorize(creds)
 
+def connect_to_sheet(json_keyfile, spreadsheet_url, sheet_name):
+    """Connects to a Google Sheet and returns the worksheet."""
+    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+    creds = ServiceAccountCredentials.from_json_keyfile_name(json_keyfile, scope)
+    client = gspread.authorize(creds)
+
+    # Open spreadsheet by URL and get the worksheet
+    sheet = client.open_by_url(spreadsheet_url)
+    return sheet.worksheet(sheet_name)
+
+
+# Load Google Sheets data
+json_keyfile = "key.txt"
 spreadsheet_url = "https://docs.google.com/spreadsheets/d/1tKH0bgVj2p3ZgahZrjTkbTLVSquOeuPy6J7PcDNcoG0/edit?gid=0"
-sheet = client.open_by_url(spreadsheet_url)
+sheet_name = "Cr detail dump"
 
-worksheet = sheet.worksheet("Cr detail dump")
+worksheet = connect_to_sheet(json_keyfile, spreadsheet_url, sheet_name)
 
 
 # Role-to-Table Mapping
@@ -44,7 +53,6 @@ ROLE_TABLES = {
     "City Head": "city_head",
     "Region Head": "region_head"
 }
-
 
 @app.route("/", methods=["GET", "POST"])
 def login():
